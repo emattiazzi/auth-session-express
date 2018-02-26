@@ -150,10 +150,14 @@ async function updateFields(req, res, next) {
 
   const modifiedUser = await User.findOneAndUpdate(
     { _id: userId },
-    { $set: fieldsToUpdate }
+    { $set: fieldsToUpdate },
+    { new: true }
   );
 
-  res.status(200).json(modifiedUser);
+  if (modifiedUser) {
+    return res.status(200).json(modifiedUser);
+  }
+  return res.status(404).json({ message: 'USER_NOT_FOUND' });
 }
 
 module.exports = {

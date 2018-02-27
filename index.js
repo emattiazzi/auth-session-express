@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 app.use(session({
   secret: process.env.SESSION_SECRET,
   name: 'sessionId',
-  store: new redisStore({ host: 'localhost', port: 6379, ttl: 260 }),
+  store: new redisStore({ url: process.env.REDIS_URL, ttl: 260 }),
   saveUninitialized: false,
   resave: false,
   cookie: {

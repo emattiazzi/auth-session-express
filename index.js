@@ -28,7 +28,9 @@ app.use(session({
   }
 })
 );
-app.use(require('morgan')('dev'));
+if (process.env.NODE_ENV !== 'production') {
+  app.use(require('morgan')('dev'));
+}
 app.use(cors());
 
 mongoose.connect(process.env.MONGODB_URI);
